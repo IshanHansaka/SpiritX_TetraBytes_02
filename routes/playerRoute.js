@@ -3,47 +3,31 @@ const Player = require('../models/Player');
 const router = express.Router();
 const { authenticateUser, authenticateAdmin } = require('../middleware/auth');
 
-function economyRate(player) {
-  if (player.oversBowled == 0) return 0;
-  return player.runsConceded / player.oversBowled;
-}
+function calculatePlayerStats(player) {
+  const stats = {
+    economyRate:
+      player.oversBowled === 0
+        ? 0
+        : (player.runsConceded / (player.oversBowled * 6)) * 6,
+    battingAverage:
+      player.inningsPlayed === 0 ? 0 : player.totalRuns / player.inningsPlayed,
+    battingSR:
+      player.ballsFaced === 0
+        ? 0
+        : (player.totalRuns / player.ballsFaced) * 100,
+    bowlingSR:
+      player.wickets === 0 ? 0 : (player.oversBowled * 6) / player.wickets,
+  };
 
-function battingAverage(player) {
-  if (player.inningsPlayed == 0) return 0;
-  return player.totalRuns / player.inningsPlayed;
-}
+  stats.points =
+    stats.battingSR / 5 +
+    stats.battingAverage * 0.8 +
+    (stats.bowlingSR === 0 ? 0 : 500 / stats.bowlingSR) +
+    (stats.economyRate === 0 ? 0 : 140 / stats.economyRate);
 
-function battingSR(player) {
-  if (player.ballsFaced == 0) return 0;
-  return (player.totalRuns / player.ballsFaced) * 100;
-}
+  stats.value = Math.round(((9 * stats.points + 100) * 1000) / 50000) * 50000;
 
-function bowlingSR(player) {
-  if (player.wickets == 0) return 0;
-  return (player.oversBowled * 6) / player.wickets;
-}
-
-function bowlingPoints1(player) {
-  if (bowlingSR(player) == 0) return 0;
-  return 500 / bowlingSR(player);
-}
-
-function bowlingPoints2(player) {
-  if (economyRate(player) == 0) return 0;
-  return 140 / economyRate(player);
-}
-
-function playerPoints(player) {
-  return (
-    battingSR(player) / 5 +
-    battingAverage * 0.8 +
-    bowlingPoints1(player) +
-    bowlingPoints2(player)
-  );
-}
-
-function playerValue(player){
-  return (9*playerPoints(player)+100)*1000
+  return stats;
 }
 
 router.post('/', authenticateAdmin, async (req, res) => {
@@ -61,18 +45,12 @@ router.post('/', authenticateAdmin, async (req, res) => {
 router.get('/', authenticateUser, async (req, res) => {
   try {
     const players = await Player.find();
-
-    const playersWithCalculatedData = players.map(player => {
-      player.economyRate = economyRate(player);
-      player.battingAverage = battingAverage(player);
-      player.battingSR = battingSR(player);
-      player.bowlingSR = bowlingSR(player);
-      player.points = playerPoints(player);
-      player.value = playerValue(player);
-      return player;
+    const playersWithStats = players.map((player) => {
+      const stats = calculatePlayerStats(player);
+      return { ...player.toObject(), ...stats };
     });
 
-    res.status(200).json(playersWithCalculatedData);
+    res.status(200).json(playersWithStats);
   } catch (err) {
     res
       .status(500)
@@ -84,15 +62,9 @@ router.get('/:id', authenticateUser, async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) return res.status(404).json({ message: 'Player not found' });
-    
-    player.economyRate = economyRate(player);
-    player.battingAverage = battingAverage(player);
-    player.battingSR = battingSR(player);
-    player.bowlingSR = bowlingSR(player);
-    player.points = playerPoints(player);
-    player.value = playerValue(player);
-    
-    res.status(200).json(player);
+
+    const stats = calculatePlayerStats(player);
+    res.status(200).json({ ...player.toObject(), ...stats });
   } catch (err) {
     res
       .status(500)
@@ -118,6 +90,7 @@ router.delete('/:id', authenticateAdmin, async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) return res.status(404).json({ message: 'Player not found' });
+
     await player.deleteOne();
     res.status(200).json({ message: 'Player deleted' });
   } catch (err) {
