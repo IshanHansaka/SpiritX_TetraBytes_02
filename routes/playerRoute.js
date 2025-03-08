@@ -1,9 +1,9 @@
 const express = require('express');
 const Player = require('../models/Player');
 const router = express.Router();
-const authenticateAdmin = require('../middleware/auth');
+const { authenticateUser, authenticateAdmin } = require('../middleware/auth');
 
-router.post('/', async (req, res) => {
+router.post('/', authenticateAdmin, async (req, res) => {
   const player = new Player(req.body);
   try {
     const newPlayer = await player.save();
@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', authenticateUser, async (req, res) => {
   try {
     const players = await Player.find();
     res.status(200).json(players);
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticateUser, async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) return res.status(404).send({ message: 'Player not found' });
@@ -32,7 +32,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', authenticateAdmin, async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) return res.status(404).send({ message: 'Player not found' });
@@ -44,7 +44,7 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticateAdmin, async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) return res.status(404).send({ message: 'Player not found' });
