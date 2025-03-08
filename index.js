@@ -9,13 +9,11 @@ app.use(express.json());
 
 const healthCheck = require('./routes/healthCheck');
 const playerRoute = require('./routes/playerRoute');
-const adminRoute = require('./routes/adminRoute');
 const loginRoute = require('./routes/loginRoute');
 const signupRoute = require('./routes/signupRoute');
 
 app.use('/', healthCheck);
 app.use('/players', playerRoute);
-app.use('/admin', adminRoute);
 app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 
