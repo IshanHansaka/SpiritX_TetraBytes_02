@@ -9,7 +9,9 @@ router.post('/', authenticateAdmin, async (req, res) => {
     const newPlayer = await player.save();
     res.status(201).json(newPlayer);
   } catch (err) {
-    res.status(500).send('Error creating player');
+    res
+      .status(500)
+      .json({ message: 'Error creating player', error: err.message });
   }
 });
 
@@ -18,40 +20,48 @@ router.get('/', authenticateUser, async (req, res) => {
     const players = await Player.find();
     res.status(200).json(players);
   } catch (err) {
-    res.status(500).send('Error fetching players');
+    res
+      .status(500)
+      .json({ message: 'Error fetching players', error: err.message });
   }
 });
 
 router.get('/:id', authenticateUser, async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
-    if (!player) return res.status(404).send({ message: 'Player not found' });
+    if (!player) return res.status(404).json({ message: 'Player not found' });
     res.status(200).json(player);
   } catch (err) {
-    res.status(500).send('Error fetching player');
+    res
+      .status(500)
+      .json({ message: 'Error fetching player', error: err.message });
   }
 });
 
 router.patch('/:id', authenticateAdmin, async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
-    if (!player) return res.status(404).send({ message: 'Player not found' });
+    if (!player) return res.status(404).json({ message: 'Player not found' });
     Object.assign(player, req.body);
     const updatedPlayer = await player.save();
-    res.status(204).json(updatedPlayer);
+    res.status(200).json(updatedPlayer);
   } catch (err) {
-    res.status(500).send('Error updating player', { message: err.message });
+    res
+      .status(500)
+      .json({ message: 'Error updating player', error: err.message });
   }
 });
 
 router.delete('/:id', authenticateAdmin, async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
-    if (!player) return res.status(404).send({ message: 'Player not found' });
+    if (!player) return res.status(404).json({ message: 'Player not found' });
     await player.deleteOne();
-    res.status(204).json({ message: 'Player deleted' });
+    res.status(200).json({ message: 'Player deleted' });
   } catch (err) {
-    res.status(500).send('Error deleting player', { message: err.message });
+    res
+      .status(500)
+      .json({ message: 'Error deleting player', error: err.message });
   }
 });
 
