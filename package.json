@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/IshanHansaka/SpiritX_TetraBytes_02#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
