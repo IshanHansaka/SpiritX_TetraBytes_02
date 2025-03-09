@@ -3,47 +3,73 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const Leaderboard = () => {
+type LeaderboardEntry = {
+  rank: number;
+  team: string;
+  username: string;
+  points: string;
+};
+
+const Leaderboard: React.FC = () => {
   const router = useRouter();
-  const loggedInUser = "user 11"; // Replace with dynamic user data
+  const loggedInUser = "user11"; // Replace with dynamic user data
   const teamName = "Cricket Smashers"; // Replace with dynamic team data
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const totalPages = 3; // Set total pages to 3
-  const [leaderboardData, setLeaderboardData] = useState([]);
+  const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
 
   const teamNames = [
-    "Cricket Smashers", "Tech Titans", "Data Warriors", "Code Avengers", "AI Innovators",
-    "Future Leaders", "UX Creators", "Design Mavericks", "Cyber Guardians"
-  ];
-
-  const usernames = [
-    "user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8", "user9"
+    "Cricket Smashers",
+    "Tech Titans",
+    "Data Warriors",
+    "Code Avengers",
+    "AI Innovators",
+    "Future Leaders",
+    "UX Creators",
+    "Design Mavericks",
+    "Cyber Guardians",
   ];
 
   useEffect(() => {
+    // Defining usernames inside useEffect to avoid unnecessary re-renders
+    const usernames = [
+      "user1",
+      "user2",
+      "user3",
+      "user4",
+      "user5",
+      "user6",
+      "user7",
+      "user8",
+      "user9",
+    ];
+
     // Fetch leaderboard data based on currentPage (replace with actual API call)
     const fetchData = async () => {
       // Simulating API data fetching
-      const data = Array(9).fill(null).map((_, index) => {
-        // Randomly pick a team name and username
-        const team = teamNames[Math.floor(Math.random() * teamNames.length)];
-        const username = usernames[Math.floor(Math.random() * usernames.length)];
-        
-        return {
-          rank: (currentPage - 1) * 9 + index + 1,
-          team: team,
-          username: username,
-          points: `${(Math.random() * 10000).toFixed(0)}`, // Random points between 0 and 10000
-        };
-      });
+      const data: LeaderboardEntry[] = Array(9)
+        .fill(null)
+        .map((_, index) => {
+          // Randomly pick a team name and username
+          const team = teamNames[Math.floor(Math.random() * teamNames.length)];
+          const username =
+            usernames[Math.floor(Math.random() * usernames.length)];
+
+          return {
+            rank: (currentPage - 1) * 9 + index + 1,
+            team: team,
+            username: username,
+            points: `${(Math.random() * 10000).toFixed(0)}`, // Random points between 0 and 10000
+          };
+        });
 
       setLeaderboardData(data);
     };
     fetchData();
-  }, [currentPage]);
+  }, [currentPage]); // Removed teamNames and usernames from dependencies
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
@@ -54,7 +80,9 @@ const Leaderboard = () => {
       {/* Hero Section */}
       <div className="w-full bg-blue-600 text-white text-center py-10 mb-6">
         <h1 className="text-4xl font-bold">Welcome to the Leaderboard</h1>
-        <p className="text-lg">Track your team performance and rise to the top!</p>
+        <p className="text-lg">
+          Track your team performance and rise to the top!
+        </p>
       </div>
 
       {/* Leaderboard */}
@@ -94,9 +122,11 @@ const Leaderboard = () => {
       {/* Pagination */}
       <div className="flex gap-2 mt-4">
         {[1, 2, 3].map((page) => (
-          <button 
-            key={page} 
-            className={`px-3 py-1 ${currentPage === page ? "bg-black text-white rounded" : ""}`} 
+          <button
+            key={page}
+            className={`px-3 py-1 ${
+              currentPage === page ? "bg-black text-white rounded" : ""
+            }`}
             onClick={() => handlePageChange(page)}
           >
             {page}
@@ -105,7 +135,7 @@ const Leaderboard = () => {
       </div>
 
       {/* View Team Button */}
-      <button 
+      <button
         className="bg-blue-600 text-white px-6 py-2 mt-6 rounded-lg"
         onClick={() => router.push("/your-team")}
       >
