@@ -1,4 +1,20 @@
-const PlayerTable = ({ players }) => {
+interface Player {
+  id: number;
+  name: string;
+  university: string;
+  category: string;
+  matches: number;
+  runs: number;
+  wickets: number;
+  average: number;
+  strikeRate: number;
+}
+
+interface PlayerTableProps {
+  players: Player[];
+}
+
+const PlayerTable: React.FC<PlayerTableProps> = ({ players }) => {
     return (
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">

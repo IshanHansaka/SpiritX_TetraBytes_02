@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import PlayerTable from "../components/statTable";
+import PlayerTable from "../../components/statTable";
 
 // Define the Player interface
 interface Player {

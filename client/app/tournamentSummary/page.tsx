@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import NavBar from '../components/navBar'; // Import NavBar component
+import NavBar from '../../components/navBar'; // Import NavBar component
 
 interface PlayerStats {
   position: number;
@@ -36,24 +36,35 @@ const TournamentSummary = () => {
   return (
     <div className="bg-gray-200 min-h-screen">
       <NavBar /> {/* NavBar is at the top of the page */}
-
       <div className="p-8 flex justify-center">
         <div className="bg-white p-6 w-full max-w-3xl rounded-md">
           <h2 className="text-gray-600 text-lg mb-4">Tournament Summary</h2>
           <div className="bg-gray-200 p-4 rounded-md text-gray-600">
-            <p className="mb-3">Total runs in the tournament: <strong>{totalRuns !== null ? totalRuns : 'Loading...'}</strong></p>
-            <p>Total wickets in the tournament: <strong>{totalWickets !== null ? totalWickets : 'Loading...'}</strong></p>
+            <p className="mb-3">
+              Total runs in the tournament:{' '}
+              <strong>{totalRuns !== null ? totalRuns : 'Loading...'}</strong>
+            </p>
+            <p>
+              Total wickets in the tournament:{' '}
+              <strong>
+                {totalWickets !== null ? totalWickets : 'Loading...'}
+              </strong>
+            </p>
           </div>
 
           <div className="mt-4">
             <button
-              className={`mr-4 ${activeTab === 'batting' ? 'font-bold underline' : ''}`}
+              className={`mr-4 ${
+                activeTab === 'batting' ? 'font-bold underline' : ''
+              }`}
               onClick={() => setActiveTab('batting')}
             >
               Batting
             </button>
             <button
-              className={`${activeTab === 'bowling' ? 'font-bold underline' : ''}`}
+              className={`${
+                activeTab === 'bowling' ? 'font-bold underline' : ''
+              }`}
               onClick={() => setActiveTab('bowling')}
             >
               Bowling
@@ -73,7 +84,9 @@ const TournamentSummary = () => {
                 <tbody>
                   {battingStats.map((player, index) => (
                     <tr key={index} className="bg-gray-600 text-white">
-                      <td className="py-2 px-4 text-center">{player.position}</td>
+                      <td className="py-2 px-4 text-center">
+                        {player.position}
+                      </td>
                       <td className="py-2 px-4 text-center">{player.player}</td>
                       <td className="py-2 px-4 text-center">{player.runs}</td>
                     </tr>
@@ -96,9 +109,13 @@ const TournamentSummary = () => {
                 <tbody>
                   {bowlingStats.map((player, index) => (
                     <tr key={index} className="bg-gray-600 text-white">
-                      <td className="py-2 px-4 text-center">{player.position}</td>
+                      <td className="py-2 px-4 text-center">
+                        {player.position}
+                      </td>
                       <td className="py-2 px-4 text-center">{player.player}</td>
-                      <td className="py-2 px-4 text-center">{player.wickets}</td>
+                      <td className="py-2 px-4 text-center">
+                        {player.wickets}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
