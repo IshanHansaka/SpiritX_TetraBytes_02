@@ -42,7 +42,7 @@ router.post('/', authenticateAdmin, async (req, res) => {
   }
 });
 
-router.get('/', authenticateUser, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const players = await Player.find();
     const playersWithStats = players.map((player) => {
