@@ -38,10 +38,10 @@ const TournamentSummary = () => {
       <NavBar /> {/* NavBar is at the top of the page */}
 
       <div className="p-8 flex justify-center">
-        <div className="bg-gray-300 p-6 w-full max-w-3xl rounded-md">
-          <h2 className="text-gray-400 text-lg mb-4">Tournament Summary</h2>
-          <div className="bg-gray-400 p-4 rounded-md">
-            <p>Total runs in the tournament: <strong>{totalRuns !== null ? totalRuns : 'Loading...'}</strong></p>
+        <div className="bg-white p-6 w-full max-w-3xl rounded-md">
+          <h2 className="text-gray-600 text-lg mb-4">Tournament Summary</h2>
+          <div className="bg-gray-200 p-4 rounded-md text-gray-600">
+            <p className="mb-3">Total runs in the tournament: <strong>{totalRuns !== null ? totalRuns : 'Loading...'}</strong></p>
             <p>Total wickets in the tournament: <strong>{totalWickets !== null ? totalWickets : 'Loading...'}</strong></p>
           </div>
 
@@ -61,10 +61,10 @@ const TournamentSummary = () => {
           </div>
 
           {activeTab === 'batting' && (
-            <div className="bg-gray-400 p-4 mt-4 rounded-md">
+            <div className="bg-gray-200 p-4 mt-4 rounded-md">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-500 text-white">
+                  <tr className="bg-gray-400 text-white">
                     <th className="py-2 px-4">Position</th>
                     <th className="py-2 px-4">Player</th>
                     <th className="py-2 px-4">Runs</th>
@@ -84,10 +84,10 @@ const TournamentSummary = () => {
           )}
 
           {activeTab === 'bowling' && (
-            <div className="bg-gray-400 p-4 mt-4 rounded-md">
+            <div className="bg-gray-200 p-4 mt-4 rounded-md">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-500 text-white">
+                  <tr className="bg-gray-400 text-white">
                     <th className="py-2 px-4">Position</th>
                     <th className="py-2 px-4">Player</th>
                     <th className="py-2 px-4">Wickets</th>
