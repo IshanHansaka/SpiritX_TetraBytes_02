@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
-const NavBar = () => {
+const UserNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,8 +18,10 @@ const NavBar = () => {
         {/* Navigation Links - Desktop */}
         <div className="hidden md:flex items-center space-x-10">
           <Link href="/" className="text-black hover:text-blue-600">Players</Link>
-          <Link href="/playerStats" className="text-black hover:text-blue-600">Player Stats</Link>
-          <Link href="/tournamentSummary" className="text-black hover:text-blue-600">Tournament Summary</Link>
+          <Link href="/selectTeam" className="text-black hover:text-blue-600">Select Team</Link>
+          <Link href="/team" className="text-black hover:text-blue-600">Team Details</Link>
+          <Link href="/leaderboard" className="text-black hover:text-blue-600">Leaderboard</Link>
+          <Link href="/budget" className="text-black hover:text-blue-600">Budget</Link>
           <button className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 transition-all duration-300 hover:bg-transparent hover:text-red-600">
             Log Out
           </button>        
@@ -51,4 +53,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default UserNavBar;

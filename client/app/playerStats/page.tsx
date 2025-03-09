@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PlayerTable from "../../components/statTable";
+import NavBar from "@/components/navBar";
 
 // Define the Player interface
 interface Player {
@@ -42,6 +43,7 @@ const PlayerStats = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      <NavBar/>
       {/* Hero Section */}
       <section className="bg-blue-600 text-white py-16 text-center">
         <h1 className="text-4xl font-bold">🏆 Player Statistics</h1>
