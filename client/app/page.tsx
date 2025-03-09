@@ -7,6 +7,8 @@ import NavBar from "./components/navBar";
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState<number | null>(null);
   const [filterOpen, setFilterOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedUniversity, setSelectedUniversity] = useState("");
   const [players, setPlayers] = useState([
     { name: "Chamika Chandimal", category: "Batsman", uni: "University of the Visual & Performing Arts" },
     { name: "Dimuth Dhananjaya", category: "All-Rounder", uni: "University of the Visual & Performing Arts" },
@@ -70,31 +72,42 @@ export default function Home() {
     }
   };
 
+  const filteredPlayers = players.filter((player) =>
+    (selectedCategory ? player.category === selectedCategory : true) &&
+    (selectedUniversity ? player.uni.includes(selectedUniversity) : true)
+  );
+
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 relative">
-      {/* Navigation Bar */}
       <NavBar />
 
-      {/* Header */}
       <header className="bg-gray-200 text-center py-15 shadow-md">
         <h1 className="text-5xl font-bold italic">SPIRIT11</h1>
         <p className="text-base text-gray-600">Inter-University Cricket Tournament</p>
       </header>
 
-      {/* Content */}
       <div className="p-6 relative">
-        {/* Filter & Add Buttons */}
         <div className="flex justify-between items-center mb-4 relative">
-          <button onClick={() => setFilterOpen(!filterOpen)} className="bg-gray-300 px-3 py-1 rounded flex items-center relative cursor-pointer">
-            <Filter className="w-4 h-4 mr-1" />
-            Filter
+          <button onClick={() => setFilterOpen(!filterOpen)} className="bg-gray-300 px-3 py-1 rounded flex items-center cursor-pointer">
+            <Filter className="w-4 h-4 mr-1" /> Filter
           </button>
-          <button className="bg-gray-300 px-3 py-1 rounded cursor-pointer">Player Stat</button>
-          <button className="bg-gray-300 px-3 py-1 rounded cursor-pointer">Tournament Summary</button>
           {filterOpen && (
-            <div className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-md border z-50 w-40">
-              <button className="block px-4 py-2 hover:bg-gray-100 w-full cursor-pointer">University</button>
-              <button className="block px-4 py-2 hover:bg-gray-100 w-full cursor-pointer">Category</button>
+            <div className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-md border z-50 w-60">
+              <p className="px-4 py-2 font-semibold">Category</p>
+              {['Bowler', 'Batsman', 'All-Rounder'].map((cat) => (
+                <button key={cat} onClick={() => setSelectedCategory(cat)} className="block px-4 py-2 hover:bg-gray-100 w-full cursor-pointer">
+                  {cat}
+                </button>
+              ))}
+              <p className="px-4 py-2 font-semibold">University</p>
+              {['University of Moratuwa', 'University of Ruhuna', 'University of Kelaniya', 'University of the Visual & Performing Arts', 'Eastern University', 'University of Jaffna', 'University of Peradeniya', 'South Eastern University'].map((uni) => (
+                <button key={uni} onClick={() => setSelectedUniversity(uni)} className="block px-4 py-2 hover:bg-gray-100 w-full cursor-pointer">
+                  {uni}
+                </button>
+              ))}
+              <button onClick={() => { setSelectedCategory(""); setSelectedUniversity(""); }} className="block px-4 py-2 bg-red-500 text-white w-full cursor-pointer rounded-b">
+                Clear Filters
+              </button>
             </div>
           )}
           <button onClick={() => setShowAddForm(!showAddForm)} className="bg-gray-300 px-3 py-1 rounded flex items-center cursor-pointer">
@@ -102,41 +115,19 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Add Player Form */}
         {showAddForm && (
           <div className="mb-4 p-4 bg-white shadow-md rounded-md">
-            <input
-              type="text"
-              placeholder="Name"
-              value={newPlayer.name}
-              onChange={(e) => setNewPlayer({ ...newPlayer, name: e.target.value })}
-              className="block w-full px-2 py-1 mb-2 border rounded"
-            />
-            <input
-              type="text"
-              placeholder="Category"
-              value={newPlayer.category}
-              onChange={(e) => setNewPlayer({ ...newPlayer, category: e.target.value })}
-              className="block w-full px-2 py-1 mb-2 border rounded"
-            />
-            <input
-              type="text"
-              placeholder="University"
-              value={newPlayer.uni}
-              onChange={(e) => setNewPlayer({ ...newPlayer, uni: e.target.value })}
-              className="block w-full px-2 py-1 mb-2 border rounded"
-            />
+            <input type="text" placeholder="Name" value={newPlayer.name} onChange={(e) => setNewPlayer({ ...newPlayer, name: e.target.value })} className="block w-full px-2 py-1 mb-2 border rounded" />
+            <input type="text" placeholder="Category" value={newPlayer.category} onChange={(e) => setNewPlayer({ ...newPlayer, category: e.target.value })} className="block w-full px-2 py-1 mb-2 border rounded" />
+            <input type="text" placeholder="University" value={newPlayer.uni} onChange={(e) => setNewPlayer({ ...newPlayer, uni: e.target.value })} className="block w-full px-2 py-1 mb-2 border rounded" />
             <button onClick={handleAddPlayer} className="bg-blue-500 text-white px-3 py-1 rounded cursor-pointer">Add Player</button>
           </div>
         )}
 
-        {/* Players Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 bg-white p-4 shadow-md rounded-md relative z-10">
-          {players.map((player, index) => (
+          {filteredPlayers.map((player, index) => (
             <div key={index} className="bg-gray-100 p-4 rounded-md flex items-center justify-between relative">
-              {/* Profile */}
               <div className="flex items-center space-x-4">
-                {/* User Icon as Image */}
                 <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
                   <User className="w-8 h-8 text-gray-600" />
                 </div>
@@ -146,13 +137,9 @@ export default function Home() {
                   <p className="text-xs text-gray-500">{player.uni}</p>
                 </div>
               </div>
-
-              {/* More Options */}
               <button onClick={() => setMenuOpen(menuOpen === index ? null : index)}>
                 <MoreVertical className="w-5 h-5 text-gray-600 cursor-pointer" />
               </button>
-
-              {/* Dropdown Menu */}
               {menuOpen === index && (
                 <div className="absolute right-4 top-10 bg-white shadow-md rounded-md border text-sm z-50">
                   <button className="block px-4 py-2 hover:bg-gray-100 w-full cursor-pointer">Edit Profile</button>
@@ -166,4 +153,3 @@ export default function Home() {
     </div>
   );
 }
-
