@@ -52,9 +52,16 @@ const PlayerStats = () => {
             onChange={(e) => setUniversityFilter(e.target.value)}
           >
             <option value="">All Universities</option>
-            <option value="University A">University A</option>
-            <option value="University B">University B</option>
-            <option value="University C">University C</option>
+            <option value="UoC">UoC</option>
+            <option value="UoM">UoM</option>
+            <option value="UoK">UoK</option>
+            <option value="UoVPA">UoVPA</option>
+            <option value="EUSL">EUSL</option>
+            <option value="UoR">UoR</option>
+            <option value="UoJ">UoJ</option>
+            <option value="SEUSL">SEUSL</option>
+            <option value="UoP">UoP</option>
+            <option value="USJP">USJP</option>
           </select>
           <select
             className="p-2 border rounded-md w-full md:w-1/4"
