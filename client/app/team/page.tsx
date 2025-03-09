@@ -1,5 +1,6 @@
-"use client"; // ✅ Required for client-side interactivity
+"use client";
 
+import UserNavBar from "@/components/userNavBar";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa"; // Importing edit icon from react-icons
 
@@ -32,6 +33,7 @@ const TeamPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      <UserNavBar/>
       {/* Hero Section */}
       <section className="bg-blue-600 text-white py-16 text-center relative">
         <h1 className="text-4xl font-bold">

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import NavBar from '../components/navBar'; // Import NavBar component
+import UserNavBar from '@/components/userNavBar';
 
 interface Player {
   id: number;
@@ -50,7 +50,7 @@ const Budget = () => {
 
   return (
     <div className="bg-gray-200 min-h-screen">
-      <NavBar /> {/* NavBar is at the top of the page */}
+      <UserNavBar /> {/* NavBar is at the top of the page */}
 
       <div className="p-8 flex justify-center">
         <div className="bg-white p-6 w-full max-w-3xl rounded-md">
