@@ -1,18 +1,17 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 
 const PlayerProfile = () => {
-  // Manage the state for each editable field
-  const [battingAverage, setBattingAverage] = useState(42.23);
-  const [strikeRate, setStrikeRate] = useState(102.45);
-  const [runsPerInning, setRunsPerInning] = useState(34.24);
-  const [ballsPerRun, setBallsPerRun] = useState(1.23);
+  // Batting Stats
+  const battingAverage = 42.23;
+  const strikeRate = 102.45;
+  const runsPerInning = 34.24;
+  const ballsPerRun = 1.23;
 
-  const [bowlingAverage, setBowlingAverage] = useState(46.23);
-  const [economyRate, setEconomyRate] = useState(102.45);
-  const [bowlingStrikeRate, setBowlingStrikeRate] = useState(34.24);
-  const [wicketsPerMatch, setWicketsPerMatch] = useState(1.23);
+  // Bowling Stats
+  const bowlingAverage = 46.23;
+  const economyRate = 102.45;
+  const bowlingStrikeRate = 34.24;
+  const wicketsPerMatch = 1.23;
 
   return (
     <div>
@@ -29,43 +28,19 @@ const PlayerProfile = () => {
       <div className="space-y-2">
         <div className="flex justify-between">
           <span className="font-medium">Batting Average</span>
-          <input
-            type="number"
-            value={battingAverage}
-            onChange={(e) => setBattingAverage(Number(e.target.value))}
-            className="text-gray-600 p-2 border rounded"
-            placeholder="42.23"
-          />
+          <span className="text-gray-600">{battingAverage}</span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium">Strike Rate (SR)</span>
-          <input
-            type="number"
-            value={strikeRate}
-            onChange={(e) => setStrikeRate(Number(e.target.value))}
-            className="text-gray-600 p-2 border rounded"
-            placeholder="102.45"
-          />
+          <span className="text-gray-600">{strikeRate}</span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium">Runs per Innings</span>
-          <input
-            type="number"
-            value={runsPerInning}
-            onChange={(e) => setRunsPerInning(Number(e.target.value))}
-            className="text-gray-600 p-2 border rounded"
-            placeholder="34.24"
-          />
+          <span className="text-gray-600">{runsPerInning}</span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium">Balls per Run</span>
-          <input
-            type="number"
-            value={ballsPerRun}
-            onChange={(e) => setBallsPerRun(Number(e.target.value))}
-            className="text-gray-600 p-2 border rounded"
-            placeholder="1.23"
-          />
+          <span className="text-gray-600">{ballsPerRun}</span>
         </div>
       </div>
 
@@ -76,43 +51,19 @@ const PlayerProfile = () => {
       <div className="space-y-2">
         <div className="flex justify-between">
           <span className="font-medium">Bowling Average</span>
-          <input
-            type="number"
-            value={bowlingAverage}
-            onChange={(e) => setBowlingAverage(Number(e.target.value))}
-            className="text-gray-600 p-2 border rounded"
-            placeholder="46.23"
-          />
+          <span className="text-gray-600">{bowlingAverage}</span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium">Economy Rate (ER)</span>
-          <input
-            type="number"
-            value={economyRate}
-            onChange={(e) => setEconomyRate(Number(e.target.value))}
-            className="text-gray-600 p-2 border rounded"
-            placeholder="102.45"
-          />
+          <span className="text-gray-600">{economyRate}</span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium">Bowling Strike Rate (SR)</span>
-          <input
-            type="number"
-            value={bowlingStrikeRate}
-            onChange={(e) => setBowlingStrikeRate(Number(e.target.value))}
-            className="text-gray-600 p-2 border rounded"
-            placeholder="34.24"
-          />
+          <span className="text-gray-600">{bowlingStrikeRate}</span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium">Wickets per Match</span>
-          <input
-            type="number"
-            value={wicketsPerMatch}
-            onChange={(e) => setWicketsPerMatch(Number(e.target.value))}
-            className="text-gray-600 p-2 border rounded"
-            placeholder="1.23"
-          />
+          <span className="text-gray-600">{wicketsPerMatch}</span>
         </div>
       </div>
     </div>

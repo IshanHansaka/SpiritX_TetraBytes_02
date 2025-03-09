@@ -29,7 +29,7 @@ const PlayerStats = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/players"); // Enter the API endpoint URL
+        const response = await fetch("http://localhost:5000/players"); // Enter the endpoint URL
         const data = await response.json();
         setPlayers(data); // Ensure the API returns an array of players with the correct structure
       } catch (error) {
