@@ -5,7 +5,6 @@ import { MoreVertical, Plus, Filter, User } from "lucide-react";
 import NavBar from "../../components/navBar";
 
 export default function UserHome() {
-  const [menuOpen, setMenuOpen] = useState<number | null>(null);
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedUniversity, setSelectedUniversity] = useState("");
@@ -62,13 +61,11 @@ export default function UserHome() {
     { name: "Tharindu Embuldeniya", category: "All-Rounder", uni: "University of the Visual & Performing Arts" },
   ]);
   const [newPlayer, setNewPlayer] = useState({ name: "", category: "", uni: "" });
-  const [showAddForm, setShowAddForm] = useState(false);
 
   const handleAddPlayer = () => {
     if (newPlayer.name && newPlayer.category && newPlayer.uni) {
       setPlayers([...players, newPlayer]);
       setNewPlayer({ name: "", category: "", uni: "" });
-      setShowAddForm(false);
     }
   };
 
@@ -110,19 +107,7 @@ export default function UserHome() {
               </button>
             </div>
           )}
-          <button onClick={() => setShowAddForm(!showAddForm)} className="bg-gray-300 px-3 py-1 rounded flex items-center cursor-pointer">
-            <Plus className="w-4 h-4 mr-1" />
-          </button>
         </div>
-
-        {showAddForm && (
-          <div className="mb-4 p-4 bg-white shadow-md rounded-md">
-            <input type="text" placeholder="Name" value={newPlayer.name} onChange={(e) => setNewPlayer({ ...newPlayer, name: e.target.value })} className="block w-full px-2 py-1 mb-2 border rounded" />
-            <input type="text" placeholder="Category" value={newPlayer.category} onChange={(e) => setNewPlayer({ ...newPlayer, category: e.target.value })} className="block w-full px-2 py-1 mb-2 border rounded" />
-            <input type="text" placeholder="University" value={newPlayer.uni} onChange={(e) => setNewPlayer({ ...newPlayer, uni: e.target.value })} className="block w-full px-2 py-1 mb-2 border rounded" />
-            <button onClick={handleAddPlayer} className="bg-blue-500 text-white px-3 py-1 rounded cursor-pointer">Add Player</button>
-          </div>
-        )}
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 bg-white p-4 shadow-md rounded-md relative z-10">
           {filteredPlayers.map((player, index) => (
@@ -137,15 +122,6 @@ export default function UserHome() {
                   <p className="text-xs text-gray-500">{player.uni}</p>
                 </div>
               </div>
-              <button onClick={() => setMenuOpen(menuOpen === index ? null : index)}>
-                <MoreVertical className="w-5 h-5 text-gray-600 cursor-pointer" />
-              </button>
-              {menuOpen === index && (
-                <div className="absolute right-4 top-10 bg-white shadow-md rounded-md border text-sm z-50">
-                  <button className="block px-4 py-2 hover:bg-gray-100 w-full cursor-pointer">Edit Profile</button>
-                  <button className="block px-4 py-2 hover:bg-gray-100 w-full cursor-pointer">Delete Profile</button>
-                </div>
-              )}
             </div>
           ))}
         </div>
