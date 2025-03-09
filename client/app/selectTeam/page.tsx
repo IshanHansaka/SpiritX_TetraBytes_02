@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import NavBar from '../components/navBar';
+import PlayerCount from '../components/playerCount';
 
 interface PlayerStats {
   position: number;
@@ -62,6 +63,7 @@ const SelectTeam = () => {
   return (
     <div className="bg-gray-200 min-h-screen">
       <NavBar />
+      <PlayerCount selected={0} total={0}/>
       <div className="p-8 flex justify-center">
         <div className="bg-white p-6 w-full max-w-3xl rounded-md shadow-lg">
           <h2 className="text-gray-600 text-lg mb-4">Select Team</h2>

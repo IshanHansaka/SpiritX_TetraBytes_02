@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import NavBar from '../components/navBar'; // Import NavBar component
+import PlayerCount from '../components/playerCount';
 
 interface Player {
   id: number;
@@ -51,7 +52,7 @@ const Budget = () => {
   return (
     <div className="bg-gray-200 min-h-screen">
       <NavBar /> {/* NavBar is at the top of the page */}
-
+      <PlayerCount selected={0} total={0}/>
       <div className="p-8 flex justify-center">
         <div className="bg-white p-6 w-full max-w-3xl rounded-md">
           <h2 className="text-gray-600 text-lg mb-4">Budget Overview</h2>
