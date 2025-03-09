@@ -3,8 +3,16 @@
 import { useState, useEffect } from "react";
 import PlayerTable from "../components/statTable";
 
+// Define the Player interface
+interface Player {
+  name: string;
+  university: string;
+  category: string;
+}
+
 const PlayerStats = () => {
-  const [players, setPlayers] = useState([]);
+  // Use the Player type to declare the players state
+  const [players, setPlayers] = useState<Player[]>([]);
   const [search, setSearch] = useState("");
   const [universityFilter, setUniversityFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -15,7 +23,7 @@ const PlayerStats = () => {
       try {
         const response = await fetch("http://localhost:5000/api/players"); // Enter the API endpoint URL
         const data = await response.json();
-        setPlayers(data);
+        setPlayers(data); // Ensure the API returns an array of players with the correct structure
       } catch (error) {
         console.error("Error fetching players:", error);
       }
