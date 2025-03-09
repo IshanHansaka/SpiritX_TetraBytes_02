@@ -21,13 +21,18 @@
   },
   "homepage": "https://github.com/IshanHansaka/SpiritX_TetraBytes_02#readme",
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "axios": "^1.8.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "promises": "^0.2.5",
+    "socket.io": "^4.8.1"
   }
 }
