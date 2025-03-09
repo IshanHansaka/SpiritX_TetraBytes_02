@@ -12,62 +12,52 @@ type LeaderboardEntry = {
 
 const Leaderboard: React.FC = () => {
   const router = useRouter();
-  const loggedInUser = "user11"; // Replace with dynamic user data
-  const teamName = "Cricket Smashers"; // Replace with dynamic team data
+  const loggedInUser = "user5"; // Replace with dynamic user data
+  const teamName = "AI Innovators"; // Replace with dynamic team data
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const totalPages = 3; // Set total pages to 3
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
 
-  const teamNames = [
-    "Cricket Smashers",
-    "Tech Titans",
-    "Data Warriors",
-    "Code Avengers",
-    "AI Innovators",
-    "Future Leaders",
-    "UX Creators",
-    "Design Mavericks",
-    "Cyber Guardians",
+  // Predefined teams and users (in a real-world scenario, this data would come from an API)
+  const teamsAndUsers = [
+    { team: "Cricket Smashers", username: "user1", points: 5000 },
+    { team: "Tech Titans", username: "user2", points: 4800 },
+    { team: "Data Warriors", username: "user3", points: 4700 },
+    { team: "Code Avengers", username: "user4", points: 4600 },
+    { team: "AI Innovators", username: "user5", points: 4550 },
+    { team: "Future Leaders", username: "user6", points: 4500 },
+    { team: "UX Creators", username: "user7", points: 4450 },
+    { team: "Design Mavericks", username: "user8", points: 4400 },
+    { team: "Cyber Guardians", username: "user9", points: 4300 },
   ];
 
+  // Function to fetch leaderboard data from the server (simulated)
+  const fetchLeaderboardData = () => {
+    // Sort the data by points in descending order
+    const sortedData = [...teamsAndUsers]
+      .sort((a, b) => b.points - a.points) // Sort by points (most points first)
+      .slice((currentPage - 1) * 9, currentPage * 9); // Paginate data based on current page
+
+    // Assign ranks to the sorted leaderboard data
+    const dataWithRank = sortedData.map((entry, index) => ({
+      rank: (currentPage - 1) * 9 + index + 1,
+      team: entry.team,
+      username: entry.username,
+      points: `${entry.points}`, // Format points
+    }));
+
+    setLeaderboardData(dataWithRank);
+  };
+
   useEffect(() => {
-    // Defining usernames inside useEffect to avoid unnecessary re-renders
-    const usernames = [
-      "user1",
-      "user2",
-      "user3",
-      "user4",
-      "user5",
-      "user6",
-      "user7",
-      "user8",
-      "user9",
-    ];
+    // Fetch data initially and then set interval for updates
+    fetchLeaderboardData();
+    const interval = setInterval(fetchLeaderboardData, 5000); // Poll every 5 seconds
 
-    // Fetch leaderboard data based on currentPage (replace with actual API call)
-    const fetchData = async () => {
-      // Simulating API data fetching
-      const data: LeaderboardEntry[] = Array(9)
-        .fill(null)
-        .map((_, index) => {
-          // Randomly pick a team name and username
-          const team = teamNames[Math.floor(Math.random() * teamNames.length)];
-          const username =
-            usernames[Math.floor(Math.random() * usernames.length)];
-
-          return {
-            rank: (currentPage - 1) * 9 + index + 1,
-            team: team,
-            username: username,
-            points: `${(Math.random() * 10000).toFixed(0)}`, // Random points between 0 and 10000
-          };
-        });
-
-      setLeaderboardData(data);
-    };
-    fetchData();
-  }, [currentPage]); // Removed teamNames and usernames from dependencies
+    // Cleanup on component unmount
+    return () => clearInterval(interval);
+  }, [currentPage]); // Only re-run when currentPage changes
 
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
@@ -103,7 +93,7 @@ const Leaderboard: React.FC = () => {
                 key={index}
                 className={`${
                   entry.username === loggedInUser && entry.team === teamName
-                    ? "bg-yellow-200"
+                    ? "bg-yellow-200" // Highlight logged-in user's row
                     : index % 2 === 0
                     ? "bg-gray-200"
                     : "bg-gray-300"
