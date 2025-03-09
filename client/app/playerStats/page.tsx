@@ -5,10 +5,18 @@ import PlayerTable from "../components/statTable";
 
 // Define the Player interface
 interface Player {
+  id: number;
   name: string;
   university: string;
   category: string;
+  totRuns: number;
+  balls: number;
+  innings: number;
+  wickets: number;
+  overs: number;
+  concRuns: number;
 }
+
 
 const PlayerStats = () => {
   // Use the Player type to declare the players state
