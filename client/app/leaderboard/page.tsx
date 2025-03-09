@@ -123,14 +123,6 @@ const Leaderboard: React.FC = () => {
           </button>
         ))}
       </div>
-
-      {/* View Team Button */}
-      <button
-        className="bg-blue-600 text-white px-6 py-2 mt-6 rounded-lg"
-        onClick={() => router.push("/your-team")}
-      >
-        View Your Team
-      </button>
     </div>
   );
 };

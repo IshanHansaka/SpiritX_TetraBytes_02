@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from 'next/link';
 
 const PlayerProfile = () => {
   // Manage the state for each editable field
@@ -17,7 +18,7 @@ const PlayerProfile = () => {
     <div>
       {/* Tabs */}
       <div className="my-4 border-b-2 border-gray-400 flex space-x-4">
-        <span className="text-gray-500 cursor-pointer">Overview</span>
+        <Link href="/profile/infoEdit"><span className="text-gray-500 cursor-pointer">Overview</span></Link>       
         <span className="text-black font-semibold border-b-2 border-black pb-2">Stats</span>
       </div>
 
