@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +22,7 @@ const NavBar = () => {
           <Link href="/tournamentSummary" className="text-black hover:text-blue-600">Tournament Summary</Link>
           <button className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 transition-all duration-300 hover:bg-transparent hover:text-red-600">
             Log Out
-          </button>        
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -44,7 +44,6 @@ const NavBar = () => {
           <button className="bg-red-600 text-white px-4 py-2 rounded-md border border-red-600 transition-all duration-300 hover:bg-transparent hover:text-red-600">
             Log Out
           </button>
-
         </div>
       )}
     </nav>
