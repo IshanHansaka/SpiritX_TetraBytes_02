@@ -1,5 +1,5 @@
 "use client";
-
+import Link from 'next/link';
 import React, { useState } from "react";
 
 const PlayerProfile = () => {
@@ -18,7 +18,7 @@ const PlayerProfile = () => {
     <div>
       {/* Tabs */}
       <div className="my-4 border-b-2 border-gray-400 flex space-x-4">
-        <span className="text-gray-500 cursor-pointer">Overview</span>
+        <Link href="/profile/info"><span className="text-gray-500 cursor-pointer">Overview</span></Link>
         <span className="text-black font-semibold border-b-2 border-black pb-2">Stats</span>
       </div>
 
