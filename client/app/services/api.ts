@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth"; // Backend URL
+const API_URL = "http://localhost:5000"; // Backend URL
 
 export const signUp = async (data: { username: string; password: string; confirmPassword: string }) => {
   return await axios.post(`${API_URL}/signup`, data);

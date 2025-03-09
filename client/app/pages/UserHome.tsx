@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MoreVertical, Plus, Filter, User } from "lucide-react";
 import NavBar from "../../components/navBar";
 
-export default function Home() {
+export default function UserHome() {
   const [menuOpen, setMenuOpen] = useState<number | null>(null);
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
