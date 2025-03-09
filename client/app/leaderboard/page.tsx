@@ -1,5 +1,6 @@
 "use client";
 
+import UserNavBar from "@/components/userNavBar";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -66,7 +67,10 @@ const Leaderboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+    <div>
+    <UserNavBar/>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center pb-10">
+      
       {/* Hero Section */}
       <div className="w-full bg-blue-600 text-white text-center py-10 mb-6">
         <h1 className="text-4xl font-bold">Welcome to the Leaderboard</h1>
@@ -123,6 +127,7 @@ const Leaderboard: React.FC = () => {
           </button>
         ))}
       </div>
+    </div>
     </div>
   );
 };
